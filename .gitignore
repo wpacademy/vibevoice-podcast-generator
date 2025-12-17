@@ -24,9 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# VibeVoice repository (users should clone this separately)
-VibeVoice/
-
 # Python
 __pycache__/
 *.py[cod]
