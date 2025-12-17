@@ -35,9 +35,8 @@ Create professional multi-speaker podcasts with AI text-to-speech. Manage speake
 
 ## 🎬 Demo
 
-![Podcast Generator Screenshot](example/screenshot.png)
 
-[Listen to Example Podcast](example/podcast-1765734509668.wav)
+[Listen to Example Podcast](example/podcast-1766006238245.wav)
 
 ---
 
