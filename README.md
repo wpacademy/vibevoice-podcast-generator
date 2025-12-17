@@ -39,12 +39,11 @@ Create professional multi-speaker podcasts with AI text-to-speech. Manage speake
 
 ### 🎧 Example Podcast
 
-<audio controls>
-  <source src="example/podcast-1766008504673.wav" type="audio/wav">
+<audio src="example/podcast-1766008504673.wav" controls>
   Your browser does not support the audio element. <a href="example/podcast-1766008504673.wav">Download the example podcast</a>
 </audio>
 
-> **Note**: Click the play button above to listen, or [download the WAV file](example/podcast-1766008504673.wav) directly.
+> **Note**: If the player doesn't appear, you can [download the WAV file](example/podcast-1766008504673.wav) to listen.
 
 
 ---
