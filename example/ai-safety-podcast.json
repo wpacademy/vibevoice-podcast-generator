@@ -1,0 +1,120 @@
+{
+    "segments": [
+        {
+            "id": "seg-1",
+            "text": "Hello everyone, and welcome back to the show. Today we're talking about something that's everywhere right now—Artificial Intelligence. From chatbots to image generators, AI is powerful, exciting, and honestly a little scary if misused. To help us understand how to use AI safely and responsibly, I'm joined by our guest Raza today. Welcome!",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-2",
+            "text": "Thank you. Great to be here. This is a very important topic, especially as AI becomes part of our daily lives.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-3",
+            "text": "Let's start simple. When we say safe usage of AI, what does that really mean?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-4",
+            "text": "At its core, safe AI usage means using AI in a way that is ethical, secure, and responsible. AI should assist humans, not replace critical thinking or harm privacy, jobs, or trust.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-5",
+            "text": "A lot of people blindly trust AI outputs. Is that risky?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-6",
+            "text": "Very risky. AI can sound confident and still be wrong. People should treat AI like a smart assistant, not an absolute authority. Always verify facts, especially for medical, legal, or financial advice.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-7",
+            "text": "Privacy is another big concern. Many users share personal data with AI tools without thinking.",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-8",
+            "text": "Exactly. You should never input sensitive information like passwords, identity numbers, bank details, or confidential business data. Once shared, you don't really control where that data goes.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-9",
+            "text": "What about students and professionals using AI for work or studies?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-10",
+            "text": "AI is great for learning, brainstorming, and productivity—but copying AI-generated content blindly can cause plagiarism and skill dependency. Use AI to assist, not to cheat or replace learning.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-11",
+            "text": "There's also fear around AI-generated misinformation and deepfakes.",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-12",
+            "text": "That's a serious issue. AI can generate fake images, videos, and news that look real. People must develop digital literacy—question sources, cross-check information, and avoid sharing unverified content.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-13",
+            "text": "How can creators and businesses use AI safely?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-14",
+            "text": "By being transparent. If AI is used in content, design, or decisions, disclose it when necessary. Also, ensure AI tools follow ethical guidelines and don't discriminate or spread bias.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-15",
+            "text": "Any advice for parents and kids?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-16",
+            "text": "Parents should guide children on AI use, just like the internet. Kids should know AI isn't human, doesn't always tell the truth, and shouldn't replace real learning or human interaction.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-17",
+            "text": "Before we wrap up, what's one golden rule for safe AI usage?",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        },
+        {
+            "id": "seg-18",
+            "text": "Think before you trust. AI is powerful, but humans must stay in control—ethically, creatively, and responsibly.",
+            "voice": "en-Carter_man",
+            "speakerId": "2"
+        },
+        {
+            "id": "seg-19",
+            "text": "That's it for today's episode. If you found this helpful, share it with someone who uses AI daily. Stay curious, stay safe, and see you in the next episode.",
+            "voice": "en-Emma_woman",
+            "speakerId": "1"
+        }
+    ],
+    "createdAt": "2025-12-18T02:39:32+05:00",
+    "version": "1.0.0"
+}
