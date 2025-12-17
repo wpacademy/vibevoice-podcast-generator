@@ -37,8 +37,15 @@ Create professional multi-speaker podcasts with AI text-to-speech. Manage speake
 
 <img width="2530" height="1275" alt="podcast-12-18-2025_02_32_AM" src="https://github.com/user-attachments/assets/2749ae59-d473-4cd3-abcd-9462844dbf02" />
 
+### 🎧 Example Podcast
 
-[Listen to Example Podcast](example/podcast-1766008504673.wav)
+<audio controls>
+  <source src="example/podcast-1766008504673.wav" type="audio/wav">
+  Your browser does not support the audio element. <a href="example/podcast-1766008504673.wav">Download the example podcast</a>
+</audio>
+
+> **Note**: Click the play button above to listen, or [download the WAV file](example/podcast-1766008504673.wav) directly.
+
 
 ---
 
