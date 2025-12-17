@@ -656,189 +656,195 @@ export function PodcastMaker() {
       />
 
       {/* Main Content - with left margin for fixed sidebar */}
-      <main className="flex-1 ml-80 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-6 py-8">
+      <main className="flex-1 ml-80 relative">
+        {/* Fixed Action Bar */}
+        <div className={`fixed top-0 left-80 right-0 z-20 flex flex-wrap items-center justify-between gap-4 p-4 border-b ${isDark
+          ? 'bg-zinc-900 border-zinc-800'
+          : 'bg-white border-gray-200'
+          }`}>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={addSegment}
+              disabled={isBusy}
+              className="flex items-center gap-2 px-4 py-2.5 bg-teal-600 hover:bg-teal-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
+            >
+              <Plus className="w-5 h-5" />
+              Add Segment
+            </button>
 
-          {/* Action Bar */}
-          <div className={`flex flex-wrap items-center justify-between gap-4 mb-6 p-4 rounded-xl border ${isDark
-            ? 'bg-zinc-900 border-zinc-800'
-            : 'bg-white border-gray-200'
-            }`}>
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={addSegment}
+            <span className={`text-sm ${isDark ? 'text-zinc-500' : 'text-gray-500'}`}>
+              {segments.length} segment{segments.length !== 1 ? "s" : ""}
+              {validCount > 0 && (
+                <span className="ml-2 text-teal-400">
+                  ({cachedCount}/{validCount} generated)
+                </span>
+              )}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={generateAllAudio}
+              disabled={isBusy || cachedCount === validCount}
+              className="flex items-center gap-2 px-4 py-2.5 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Generate All
+            </button>
+
+            <button
+              type="button"
+              onClick={exportPodcastJson}
+              disabled={isBusy}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors border disabled:cursor-not-allowed ${isDark
+                ? 'bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 text-zinc-300 hover:text-white disabled:text-zinc-600 border-zinc-700'
+                : 'bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-700 hover:text-gray-900 disabled:text-gray-400 border-gray-300'
+                }`}
+            >
+              <Download className="w-4 h-4" />
+              Export JSON
+            </button>
+
+            <label
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors cursor-pointer border ${isDark
+                ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border-zinc-700'
+                : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 border-gray-300'
+                } ${isBusy ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
+            >
+              <Upload className="w-4 h-4" />
+              Import
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".json"
+                onChange={importPodcast}
                 disabled={isBusy}
-                className="flex items-center gap-2 px-4 py-2.5 bg-teal-600 hover:bg-teal-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
-              >
-                <Plus className="w-5 h-5" />
-                Add Segment
-              </button>
+                className="hidden"
+              />
+            </label>
+          </div>
+        </div>
 
-              <span className={`text-sm ${isDark ? 'text-zinc-500' : 'text-gray-500'}`}>
-                {segments.length} segment{segments.length !== 1 ? "s" : ""}
-                {validCount > 0 && (
-                  <span className="ml-2 text-teal-400">
-                    ({cachedCount}/{validCount} generated)
-                  </span>
-                )}
-              </span>
+        {/* Scrollable Content Area */}
+        <div className="pt-28 pb-32 px-6">
+          <div className="max-w-5xl mx-auto">
+
+            {/* Export Progress Banner */}
+            {isExporting && (
+              <div className="mb-6 p-4 bg-teal-900/30 rounded-xl border border-teal-600/30">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <Loader2 className="w-5 h-5 text-teal-400 animate-spin" />
+                    <div>
+                      <p className="text-white font-medium">Exporting Audio</p>
+                      <p className="text-teal-300 text-sm">{exportProgress}</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleCancelExport}
+                    className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Segments */}
+            <div className="space-y-4 mb-8">
+              {segments.map((segment, index) => (
+                <SegmentCard
+                  key={segment.id}
+                  segment={segment}
+                  index={index}
+                  speakers={speakers}
+                  isBusy={isBusy}
+                  isPlaying={playingSegmentId === segment.id}
+                  isGenerating={generatingSegmentId === segment.id}
+                  isCached={isSegmentCached(segment)}
+                  canDelete={segments.length > 1}
+                  theme={theme}
+                  onUpdate={updateSegment}
+                  onRemove={removeSegment}
+                  onGenerate={() => generateSegmentAudio(segment)}
+                  onPlay={async () => {
+                    if (!segment.text.trim()) return;
+                    setPlayingSegmentId(segment.id);
+                    try {
+                      if (!isSegmentCached(segment)) {
+                        await generateSegmentAudio(segment);
+                      }
+                      // Need to use updated cache
+                      await playAudioFromCache(segment.id);
+                    } catch (err) {
+                      console.error("Failed to play:", err);
+                    }
+                    setPlayingSegmentId(null);
+                  }}
+                  onStop={() => {
+                    stopPlayback();
+                    setPlayingSegmentId(null);
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Fixed Play All Footer */}
+        <div className={`fixed bottom-0 left-80 right-0 z-20 p-4 border-t ${isDark
+          ? 'bg-zinc-950 border-zinc-800'
+          : 'bg-gray-50 border-gray-200'
+          }`}>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Volume2 className="w-5 h-5 text-teal-400" />
+              <div>
+                <p className="text-white font-medium">Full Podcast</p>
+                <p className="text-zinc-500 text-sm">
+                  {isPlayingAll
+                    ? `Playing segment ${currentPlayingIndex + 1} of ${segments.length}`
+                    : `${segments.length} segments ready`}
+                </p>
+              </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={generateAllAudio}
-                disabled={isBusy || cachedCount === validCount}
-                className="flex items-center gap-2 px-4 py-2.5 bg-amber-600 hover:bg-amber-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
-              >
-                <RefreshCw className="w-4 h-4" />
-                Generate All
-              </button>
-
-              <button
-                type="button"
-                onClick={exportPodcastJson}
-                disabled={isBusy}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors border disabled:cursor-not-allowed ${isDark
-                  ? 'bg-zinc-800 hover:bg-zinc-700 disabled:bg-zinc-800/50 text-zinc-300 hover:text-white disabled:text-zinc-600 border-zinc-700'
-                  : 'bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 text-gray-700 hover:text-gray-900 disabled:text-gray-400 border-gray-300'
-                  }`}
-              >
-                <Download className="w-4 h-4" />
-                Export JSON
-              </button>
-
-              <label
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-colors cursor-pointer border ${isDark
-                  ? 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border-zinc-700'
-                  : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 border-gray-300'
-                  } ${isBusy ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
-              >
-                <Upload className="w-4 h-4" />
-                Import
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".json"
-                  onChange={importPodcast}
-                  disabled={isBusy}
-                  className="hidden"
-                />
-              </label>
-            </div>
-          </div>
-
-          {/* Export Progress Banner */}
-          {isExporting && (
-            <div className="mb-6 p-4 bg-teal-900/30 rounded-xl border border-teal-600/30">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <Loader2 className="w-5 h-5 text-teal-400 animate-spin" />
-                  <div>
-                    <p className="text-white font-medium">Exporting Audio</p>
-                    <p className="text-teal-300 text-sm">{exportProgress}</p>
-                  </div>
-                </div>
+              {!isPlayingAll && (
                 <button
                   type="button"
-                  onClick={handleCancelExport}
-                  className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg font-medium transition-colors"
+                  onClick={handleExportAudio}
+                  disabled={segments.every((s) => !s.text.trim()) || isExporting}
+                  className="flex items-center gap-2 px-5 py-3 bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-800 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
                 >
-                  Cancel
+                  <FileAudio className="w-5 h-5" />
+                  Download Audio
                 </button>
-              </div>
-            </div>
-          )}
+              )}
 
-          {/* Segments */}
-          <div className="space-y-4 mb-8">
-            {segments.map((segment, index) => (
-              <SegmentCard
-                key={segment.id}
-                segment={segment}
-                index={index}
-                speakers={speakers}
-                isBusy={isBusy}
-                isPlaying={playingSegmentId === segment.id}
-                isGenerating={generatingSegmentId === segment.id}
-                isCached={isSegmentCached(segment)}
-                canDelete={segments.length > 1}
-                theme={theme}
-                onUpdate={updateSegment}
-                onRemove={removeSegment}
-                onGenerate={() => generateSegmentAudio(segment)}
-                onPlay={async () => {
-                  if (!segment.text.trim()) return;
-                  setPlayingSegmentId(segment.id);
-                  try {
-                    if (!isSegmentCached(segment)) {
-                      await generateSegmentAudio(segment);
-                    }
-                    // Need to use updated cache
-                    await playAudioFromCache(segment.id);
-                  } catch (err) {
-                    console.error("Failed to play:", err);
-                  }
-                  setPlayingSegmentId(null);
-                }}
-                onStop={() => {
-                  stopPlayback();
-                  setPlayingSegmentId(null);
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Play All Footer */}
-          <div className="sticky bottom-4 p-4 bg-zinc-900 rounded-xl border border-zinc-800 shadow-xl">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <Volume2 className="w-5 h-5 text-teal-400" />
-                <div>
-                  <p className="text-white font-medium">Full Podcast</p>
-                  <p className="text-zinc-500 text-sm">
-                    {isPlayingAll
-                      ? `Playing segment ${currentPlayingIndex + 1} of ${segments.length}`
-                      : `${segments.length} segments ready`}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {!isPlayingAll && (
-                  <button
-                    type="button"
-                    onClick={handleExportAudio}
-                    disabled={segments.every((s) => !s.text.trim()) || isExporting}
-                    className="flex items-center gap-2 px-5 py-3 bg-zinc-700 hover:bg-zinc-600 disabled:bg-zinc-800 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
-                  >
-                    <FileAudio className="w-5 h-5" />
-                    Download Audio
-                  </button>
-                )}
-
-                {isPlayingAll ? (
-                  <button
-                    type="button"
-                    onClick={handleStopAll}
-                    className="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg font-medium transition-colors"
-                  >
-                    <Square className="w-5 h-5" />
-                    Stop Podcast
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={handlePlayAll}
-                    disabled={segments.every((s) => !s.text.trim()) || isExporting}
-                    className="flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
-                  >
-                    <Play className="w-5 h-5" />
-                    Play Podcast
-                  </button>
-                )}
-              </div>
+              {isPlayingAll ? (
+                <button
+                  type="button"
+                  onClick={handleStopAll}
+                  className="flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg font-medium transition-colors"
+                >
+                  <Square className="w-5 h-5" />
+                  Stop Podcast
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handlePlayAll}
+                  disabled={segments.every((s) => !s.text.trim()) || isExporting}
+                  className="flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-500 disabled:bg-zinc-700 text-white disabled:text-zinc-500 rounded-lg font-medium transition-colors disabled:cursor-not-allowed"
+                >
+                  <Play className="w-5 h-5" />
+                  Play Podcast
+                </button>
+              )}
             </div>
           </div>
         </div>
