@@ -108,24 +108,19 @@ If not present, download them from the VibeVoice repository or model hub.
 
 **Basic usage:**
 ```bash
-python demo/server.py --model microsoft/VibeVoice-Realtime-0.5B --device cuda --port 8888
-```
-
-**For the 1.5B model:**
-```bash
-python demo/server.py --model microsoft/VibeVoice-1.5B --device cuda --port 8888
+python demo/server.py --model microsoft/VibeVoice-Realtime-0.5B --device cuda --port 8880
 ```
 
 **Available command-line options:**
 - `--model` - Model path or HuggingFace repo ID (default: `microsoft/VibeVoice-Realtime-0.5B`)
 - `--device` - Device to run inference on: `cuda`, `cpu`, or `mps` (default: `cuda`)
-- `--port` - Port to run the server on (default: `8888`)
+- `--port` - Port to run the server on (default: `8880`)
 - `--host` - Host to bind the server to (default: `0.0.0.0`)
 - `--inference-steps` - Number of inference steps (default: `5`)
 
 ### 7. Verify Server is Running
 
-Once started, the server will be available at `http://localhost:8888`.
+Once started, the server will be available at `http://localhost:8880`.
 
 **Available API endpoints:**
 - `GET /api/health` - Health check endpoint
@@ -135,7 +130,7 @@ Once started, the server will be available at `http://localhost:8888`.
 
 **Test the health endpoint:**
 ```bash
-curl http://localhost:8888/api/health
+curl http://localhost:8880/api/health
 ```
 
 Expected response:
