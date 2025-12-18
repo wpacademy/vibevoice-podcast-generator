@@ -35,7 +35,8 @@ Create professional multi-speaker podcasts with AI text-to-speech. Manage speake
 
 ## 🎬 Demo
 
-<img width="2530" height="1275" alt="podcast-12-18-2025_02_32_AM" src="https://github.com/user-attachments/assets/2749ae59-d473-4cd3-abcd-9462844dbf02" />
+<img width="2531" height="1280" alt="Podcast-Generator-12-18-2025_06_43_AM" src="https://github.com/user-attachments/assets/b0c035e8-991f-4e7b-b8b1-1c4329985538" />
+
 
 ### 🎧 Example Podcast
 
