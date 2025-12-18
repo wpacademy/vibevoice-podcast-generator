@@ -57,7 +57,13 @@ Create professional multi-speaker podcasts with AI text-to-speech. Manage speake
 - NVIDIA GPU with CUDA support (recommended)
 - Git
 
-### 1. Install and Configure VibeVoice
+### 1. Clone This Repository
+```bash
+# Clone VibeVoice Poidcast Generator
+git clone https://github.com/wpacademy/vibevoice-podcast-generator.git
+cd vibevoice-podcast-generator
+```
+### 2. Install and Configure VibeVoice
 
 Follow the comprehensive [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed instructions on:
 - Cloning the VibeVoice repository
@@ -66,30 +72,10 @@ Follow the comprehensive [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed instructi
 - Downloading voice presets
 - Starting the API server
 
-**Quick setup:**
-```bash
-# Clone VibeVoice
-git clone https://github.com/microsoft/VibeVoice
-cd VibeVoice
-
-# Create virtual environment
-python -m venv venv
-.\venv\Scripts\activate.ps1  # Windows
-# or: source venv/bin/activate  # Linux/Mac
-
-# Install dependencies
-pip install -e .
-
-# Install CUDA-enabled PyTorch
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-
-# Start server
-python demo/server.py --model microsoft/VibeVoice-Realtime-0.5B --device cuda --port 8880
-```
 
 > **Important**: Use port `8880` for the server to match the frontend configuration.
 
-### 2. Run the Frontend
+### 3. Run the Frontend
 
 ```bash
 # Install dependencies
