@@ -1,3 +1,6 @@
+
+<img width="128" height="128" alt="vvpg" src="https://github.com/user-attachments/assets/4d9c7d19-9ef3-4ce6-b159-f9bf6026e5cf" />
+
 # 🎙️ VibeVoice Podcast Generator
 
 Create professional multi-speaker podcasts with AI text-to-speech. Manage speakers, assign voices, and generate high-quality audio with an intuitive interface.
